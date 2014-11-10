@@ -2,6 +2,8 @@ package de.unikoblenz.west.rdf.partitioning;
 
 import java.util.Set;
 
+import org.openrdf.model.Graph;
+
 /**
  * supplies methods to partition a given RDF graph.
  * @author lkastler
@@ -9,10 +11,10 @@ import java.util.Set;
 public interface RdfPartitioner {
 
 	/**
-	 * partitions a given RdfGraph to a set of Rdf graphs (partitions).
-	 * @param graph
-	 * @return
+	 * partitions a given graph to a set of RDF graphs (partitions).
+	 * @param graph - graph to partition.
+	 * @return set of RDF graphs representing partitions of given RDF graph.
 	 * @throws RdfPartitioningException
 	 */
-	public Set<RdfGraph> partition(RdfGraph graph) throws RdfPartitioningException;
+	public Set<Graph> partition(Graph graph) throws RdfPartitioningException;
 }

@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import org.openrdf.model.Graph;
 import org.openrdf.model.Statement;
+import org.openrdf.model.impl.TreeModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.unikoblenz.west.rdf.partitioning.RdfGraph;
 import de.unikoblenz.west.rdf.partitioning.RdfPartitioner;
 import de.unikoblenz.west.rdf.partitioning.RdfPartitioningException;
 
@@ -41,11 +42,11 @@ public class RandomPartitioner implements RdfPartitioner {
 	 * (non-Javadoc)
 	 * @see de.unikoblenz.west.lkastler.rdf.partitioning.RdfPartitioner#partition(de.unikoblenz.west.lkastler.rdf.partitioning.RdfGraph)
 	 */
-	public Set<RdfGraph> partition(RdfGraph graph) throws RdfPartitioningException {
-		HashMap<Integer, RdfGraph> partitions = new HashMap<Integer, RdfGraph>(numberOfPartitions);
+	public Set<Graph> partition(Graph graph) throws RdfPartitioningException {
+		HashMap<Integer, Graph> partitions = new HashMap<Integer, Graph>(numberOfPartitions);
 		
 		for(int i = 0; i < numberOfPartitions; i++) {
-			partitions.put(i, new RdfGraph());
+			partitions.put(i, new TreeModel());
 		}
 		
 		for(Statement t : graph) {
@@ -53,7 +54,7 @@ public class RandomPartitioner implements RdfPartitioner {
 		}
 		
 		
-		return new HashSet<RdfGraph>(partitions.values());
+		return new HashSet<Graph>(partitions.values());
 	}
 
 }
