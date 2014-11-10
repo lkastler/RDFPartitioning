@@ -1,4 +1,4 @@
-package de.unikoblenz.west.rdf.partitioning;
+package de.unikoblenz.west.rdf.partitioning.converter;
 
 import java.util.HashMap;
 
@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // TODO doc
-public class GraphRdfHandler implements RDFHandler {	
+public class GraphReader implements RDFHandler {	
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	

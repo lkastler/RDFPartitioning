@@ -2,15 +2,19 @@ package de.unikoblenz.west.rdf.partitioning.test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.apache.log4j.BasicConfigurator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.openrdf.model.Graph;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
@@ -23,18 +27,34 @@ import org.openrdf.rio.RDFParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.unikoblenz.west.rdf.partitioning.GraphRdfHandler;
 import de.unikoblenz.west.rdf.partitioning.RdfPartitioner;
 import de.unikoblenz.west.rdf.partitioning.RdfPartitioningException;
+import de.unikoblenz.west.rdf.partitioning.converter.GraphReader;
 import de.unikoblenz.west.rdf.partitioning.impl.RandomPartitioner;
+import de.unikoblenz.west.rdf.partitioning.impl.KerninghamLinPartitioner;
 
 /**
  * testing RdfPartitioning implementations
  * @author lkastler
  */
+@RunWith(value=Parameterized.class)
 public class TestRdfPartitioning {
 
 	Logger log = LoggerFactory.getLogger(TestRdfPartitioning.class);
+	
+	@Parameters(name="{index} {0}")
+	public static Collection<RdfPartitioner> data() {
+		return Arrays.asList(new RdfPartitioner[] {
+				new RandomPartitioner(),
+				new KerninghamLinPartitioner()
+		});
+	}
+	
+	private final RdfPartitioner partitioner;
+	
+	public TestRdfPartitioning(RdfPartitioner partitioner) {
+		this.partitioner = partitioner;
+	}
 	
 	/**
 	 * sets logging up
@@ -81,10 +101,8 @@ public class TestRdfPartitioning {
 
 		log.info("graph created: " + graph);
 		
-		RdfPartitioner partitioner = new RandomPartitioner();
-		
 		try {
-			Set<Graph> partitions = partitioner.partition(graph);
+			List<Graph> partitions = partitioner.partition(graph);
 			
 			log.info("successful partitioninging: " + partitions);
 		} catch (RdfPartitioningException e) {
@@ -101,12 +119,11 @@ public class TestRdfPartitioning {
 		
 		RDFLoader load = new RDFLoader(null, new ValueFactoryImpl());
 		
-		RdfPartitioner partitioner = new RandomPartitioner();
-		GraphRdfHandler handler = new GraphRdfHandler();
+		GraphReader handler = new GraphReader();
 		
 		try {
 			load.load(new File(fileName), null, RDFFormat.TURTLE, handler);
-			Set<Graph> partitions = partitioner.partition(handler.getGraph());
+			List<Graph> partitions = partitioner.partition(handler.getGraph());
 			
 			log.info("partitioning successful");
 			

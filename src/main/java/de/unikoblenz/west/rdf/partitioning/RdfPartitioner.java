@@ -1,6 +1,6 @@
 package de.unikoblenz.west.rdf.partitioning;
 
-import java.util.Set;
+import java.util.List;
 
 import org.openrdf.model.Graph;
 
@@ -16,5 +16,5 @@ public interface RdfPartitioner {
 	 * @return set of RDF graphs representing partitions of given RDF graph.
 	 * @throws RdfPartitioningException
 	 */
-	public Set<Graph> partition(Graph graph) throws RdfPartitioningException;
+	public List<Graph> partition(Graph graph) throws RdfPartitioningException;
 }

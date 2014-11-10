@@ -1,9 +1,9 @@
 package de.unikoblenz.west.rdf.partitioning.impl;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.openrdf.model.Graph;
 import org.openrdf.model.Statement;
@@ -42,7 +42,7 @@ public class RandomPartitioner implements RdfPartitioner {
 	 * (non-Javadoc)
 	 * @see de.unikoblenz.west.lkastler.rdf.partitioning.RdfPartitioner#partition(de.unikoblenz.west.lkastler.rdf.partitioning.RdfGraph)
 	 */
-	public Set<Graph> partition(Graph graph) throws RdfPartitioningException {
+	public List<Graph> partition(Graph graph) throws RdfPartitioningException {
 		HashMap<Integer, Graph> partitions = new HashMap<Integer, Graph>(numberOfPartitions);
 		
 		for(int i = 0; i < numberOfPartitions; i++) {
@@ -54,7 +54,15 @@ public class RandomPartitioner implements RdfPartitioner {
 		}
 		
 		
-		return new HashSet<Graph>(partitions.values());
+		return new LinkedList<Graph>(partitions.values());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "RandomPartitioner [log=" + log + ", rand=" + rand
+				+ ", numberOfPartitions=" + numberOfPartitions + "]";
+	}
 }
