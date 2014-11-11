@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.unikoblenz.west.rdf.generator.RdfGeneratorException;
-import de.unikoblenz.west.rdf.generator.model.Edge;
-import de.unikoblenz.west.rdf.generator.model.Vertex;
+import de.unikoblenz.west.rdf.graph.Edge;
+import de.unikoblenz.west.rdf.graph.Vertex;
 import de.unikoblenz.west.rdf.partitioning.RdfPartitioner;
 import de.unikoblenz.west.rdf.partitioning.RdfPartitioningException;
 import de.unikoblenz.west.rdf.partitioning.converter.Converter;
