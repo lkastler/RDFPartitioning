@@ -52,7 +52,6 @@ public class KerninghamLinPartitioner implements RdfPartitioner {
 			return v;
 		}
 
-		@Override
 		public int compareTo(D o) {
 			return (o.e - o.i) - (e - i);
 		}
@@ -83,7 +82,6 @@ public class KerninghamLinPartitioner implements RdfPartitioner {
 	private final int THRESHOLD = 5;
 	private final int numberOfPartitions = 2;
 		
-	@Override
 	public List<Graph> partition(Graph graph) throws RdfPartitioningException {
 		try {
 			List<Vertex> vertices = Converter.generateVertexList(graph);

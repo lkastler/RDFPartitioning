@@ -21,28 +21,23 @@ public class GraphReader implements RDFHandler {
 	
 	private Graph graph = new TreeModel();
 			
-	@Override
 	public void endRDF() throws RDFHandlerException {
 		locked = false;
 	}
 
-	@Override
 	public void handleComment(String comment) throws RDFHandlerException {
 		log.debug("comment: " + comment);
 	}
 
-	@Override
 	public void handleNamespace(String prefix, String uri)
 			throws RDFHandlerException {
 		namespaces.put(prefix, uri);
 	}
 
-	@Override
 	public void handleStatement(Statement statement) throws RDFHandlerException {
 		graph.add(statement);
 	}
 
-	@Override
 	public void startRDF() throws RDFHandlerException {
 		locked = true;
 	}
